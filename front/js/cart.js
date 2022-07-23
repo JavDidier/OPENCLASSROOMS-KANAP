@@ -1,13 +1,4 @@
-
 basketLocal = getBasket();
-
-let sortBasket = rangeBasket();
-
-let test = basketLocal.sort(function (a, b) {
-  return a.color - b.color;
-});
-
-console.log(test);
 
 function main() {
   for (let index = 0; index < basketLocal.length; index++) {
@@ -102,7 +93,11 @@ function recup(productId, productQuantity, productColor) {
       pcarItemDelete.textContent = "Supprimer";
       cartItemDelete.appendChild(pcarItemDelete);
 
-      // let priceTot = priceTotal(product.price, productQuantity);
+      /* TOTAL QUANTITY */
+      document.getElementById("totalQuantity").textContent = quantityTotal(productQuantity);
+
+      /* TOTAL PRICE */
+      document.getElementById("totalPrice").textContent = priceTotal(product.price);
 
     })  
 }

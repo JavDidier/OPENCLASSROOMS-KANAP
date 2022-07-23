@@ -57,17 +57,25 @@ function addBasket(colorSelect, quantitySelect) {
 */
 
 
-/* 
-    RANGE BASKET 
-*/
-function rangeBasket() {
-  basket = localStorage.getItem("basket");
+
+
+
+/* Calcul Total Price Products*/
+let totalPrice = 0;
+function priceTotal(priceProduct) {
+  return totalPrice += priceProduct;
 }
 
 
-// /* PRICE TOTAL */
-// function priceTotal(price, Quantity) { 
-//   let priceTotalProduct = price * Quantity;
-//   totalPrice += priceTotalProduct;
-//   return total
+/* Calcul Total Quantity Products*/
+let productsQuantity = 0;
+function quantityTotal(productQuantity) {
+  return productsQuantity += productQuantity;
+}
+
+/* 
+    RANGE BASKET 
+*/
+// function rangeBasket() {
+//   basket = localStorage.getItem("basket");
 // }
