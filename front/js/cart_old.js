@@ -183,7 +183,11 @@ for (let index = 0; index < basket.length; index++) {
 
 
 
-
+function clique(itemQuantity) {
+  itemQuantity.addEventListener("change", (e) => {
+    itemQuantity.textContent = itemQuantity.value;
+  });
+}
 
 
 
@@ -192,6 +196,7 @@ for (let index = 0; index < basket.length; index++) {
 
 
 function clickChangeQuantity() {
+
 
     /* ÉVÉNEMENT ENLEVER OU AJOUTER QUANTITÉ */
   itemQuantity.addEventListener("change", (e) => {

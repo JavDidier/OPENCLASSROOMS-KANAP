@@ -1,10 +1,11 @@
-basketLocal = getBasket();
+basket = getBasket();
 
 function main() {
-  for (let index = 0; index < basketLocal.length; index++) {
-    productId         = basketLocal[index].id;
-    productColor      = basketLocal[index].color;
-    productQuantity   = basketLocal[index].quantity;
+
+  for (let index = 0; index < basket.length; index++) {
+    productId         = basket[index].id;
+    productColor      = basket[index].color;
+    productQuantity   = basket[index].quantity;
 
     recup(productId, productQuantity, productColor);
   }
@@ -88,20 +89,21 @@ function recup(productId, productQuantity, productColor) {
       cartItemDelete.className = "cart__item__content__settings__delete";
       cartSettings.appendChild(cartItemDelete);
 
-      let pcarItemDelete = document.createElement("p");
-      pcarItemDelete.className = "deleteItem";
-      pcarItemDelete.textContent = "Supprimer";
+      let pcarItemDelete          = document.createElement("p");
+      pcarItemDelete.className    = "deleteItem";
+      pcarItemDelete.textContent  = "Supprimer";
       cartItemDelete.appendChild(pcarItemDelete);
 
       /* TOTAL QUANTITY */
       document.getElementById("totalQuantity").textContent = quantityTotal(productQuantity);
 
       /* TOTAL PRICE */
-      document.getElementById("totalPrice").textContent = priceTotal(product.price);
-
+      document.getElementById("totalPrice").textContent = priceTotal(product.price, productQuantity);
+      
+      clickChangeQuantity();
     })  
 }
 
-
-
 main();
+
+

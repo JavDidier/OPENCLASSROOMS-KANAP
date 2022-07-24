@@ -52,18 +52,10 @@ function addBasket(colorSelect, quantitySelect) {
   }
 
 
-/* 
-    REMOVE BASKET 
-*/
-
-
-
-
-
 /* Calcul Total Price Products*/
 let totalPrice = 0;
-function priceTotal(priceProduct) {
-  return totalPrice += priceProduct;
+function priceTotal(priceProduct, productQuantity) {
+  return totalPrice += (priceProduct * productQuantity);
 }
 
 
@@ -73,9 +65,33 @@ function quantityTotal(productQuantity) {
   return productsQuantity += productQuantity;
 }
 
-/* 
-    RANGE BASKET 
-*/
-// function rangeBasket() {
-//   basket = localStorage.getItem("basket");
-// }
+
+
+
+
+
+
+function clickChangeQuantity() {
+
+  /* ÉVÉNEMENT ENLEVER OU AJOUTER QUANTITÉ */
+itemQuantity.addEventListener("change", (e) => {
+
+  let idActive    = e.composedPath()[4].dataset.id;
+  let colorActive = e.composedPath()[4].dataset.color;
+  let newValue    = itemQuantity.value;
+
+  /* APPEL LOCAL STORAGE */
+  let oldBasket   = localStorage.getItem("basket");
+  let newBasket   = JSON.parse(oldBasket);
+
+  let basket = newBasket.map((b) =>
+    b.id == idActive && b.color == colorActive
+      ? { ...b, quantity: parseInt(newValue) }
+      : b
+  );
+
+  quantityTotal(productQuantity);
+  localStorage.setItem("basket", JSON.stringify(basket));
+  recup(productId, productQuantity, productColor)
+});
+}
