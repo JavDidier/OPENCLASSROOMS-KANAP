@@ -1,4 +1,3 @@
-
 /* 
     GET BASKET 
 */
@@ -94,4 +93,15 @@ itemQuantity.addEventListener("change", (e) => {
   localStorage.setItem("basket", JSON.stringify(basket));
   recup(productId, productQuantity, productColor)
 });
+}
+
+
+/* RANGE BASKET */
+function rangeBasket() {
+  let oldBasket = JSON.parse(localStorage.getItem("basket"));
+
+  for (let index = 0; index < oldBasket.length; index++) {
+    const newBask = oldBasket[index];
+    console.log(newBask);
+  }
 }
