@@ -1,5 +1,3 @@
-rangeBasket();
-
 basket = getBasket();
 
 function main() {
@@ -102,6 +100,7 @@ function recup(productId, productQuantity, productColor) {
       /* TOTAL PRICE */
       document.getElementById("totalPrice").textContent = priceTotal(product.price, productQuantity);
 
+      clickChangeQuantity(itemQuantity);
     })  
 }
 

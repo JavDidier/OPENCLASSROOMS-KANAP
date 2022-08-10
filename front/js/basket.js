@@ -65,19 +65,14 @@ function quantityTotal(productQuantity) {
 }
 
 
-
-
-
-
-
-function clickChangeQuantity() {
+function clickChangeQuantity(itemQuantity) {
 
   /* ÉVÉNEMENT ENLEVER OU AJOUTER QUANTITÉ */
 itemQuantity.addEventListener("change", (e) => {
 
-  let idActive    = e.composedPath()[4].dataset.id;
-  let colorActive = e.composedPath()[4].dataset.color;
-  let newValue    = itemQuantity.value;
+  let idActive        = e.composedPath()[4].dataset.id;
+  let colorActive     = e.composedPath()[4].dataset.color;
+  let quantityProduct = itemQuantity.value;
 
   /* APPEL LOCAL STORAGE */
   let oldBasket   = localStorage.getItem("basket");
@@ -85,23 +80,14 @@ itemQuantity.addEventListener("change", (e) => {
 
   let basket = newBasket.map((b) =>
     b.id == idActive && b.color == colorActive
-      ? { ...b, quantity: parseInt(newValue) }
+      ? { ...b, quantity: parseInt(quantityProduct) }
       : b
   );
 
   quantityTotal(productQuantity);
   localStorage.setItem("basket", JSON.stringify(basket));
-  recup(productId, productQuantity, productColor)
+
+  // REFRESH PAGE
+  location.reload();
 });
-}
-
-
-/* RANGE BASKET */
-function rangeBasket() {
-  let oldBasket = JSON.parse(localStorage.getItem("basket"));
-
-  for (let index = 0; index < oldBasket.length; index++) {
-    const newBask = oldBasket[index];
-    console.log(newBask);
-  }
 }
