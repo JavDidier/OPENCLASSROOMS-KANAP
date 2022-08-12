@@ -13,7 +13,9 @@ function getBasket() {
 /* 
     SAVE BASKET 
 */
-function saveBasket(basket) {localStorage.setItem("basket", JSON.stringify(basket));}
+function saveBasket(basket) {
+  localStorage.setItem("basket", JSON.stringify(basket));
+}
 
 
 /* 
@@ -26,7 +28,7 @@ function addBasket(colorSelect, quantitySelect) {
       color: colorSelect,
       quantity: quantitySelect
     };
-  
+
     let basketProduct = basket.find((p) => {
       return p.color == item.color && p.id == item.id;
     });
@@ -42,9 +44,10 @@ function addBasket(colorSelect, quantitySelect) {
         basketProduct.quantity = basketProduct.quantity + quantitySelect;
       }
      
-    } else {  /* Si il n'existe pas encore dans le local Storage */  
+    } else {  /* S'il n'existe pas encore dans le local Storage */  
       console.log("L'article a été ajouter au panier");
       item.quantity = quantitySelect;
+
       basket.push(item);
     }
     saveBasket(basket);
@@ -74,20 +77,68 @@ itemQuantity.addEventListener("change", (e) => {
   let colorActive     = e.composedPath()[4].dataset.color;
   let quantityProduct = itemQuantity.value;
 
-  /* APPEL LOCAL STORAGE */
-  let oldBasket   = localStorage.getItem("basket");
-  let newBasket   = JSON.parse(oldBasket);
+  if (quantityProduct >= 1 && quantityProduct <=100) {
+    /* APPEL LOCAL STORAGE */
+    let oldBasket   = localStorage.getItem("basket");
+    let newBasket   = JSON.parse(oldBasket);
 
-  let basket = newBasket.map((b) =>
-    b.id == idActive && b.color == colorActive
-      ? { ...b, quantity: parseInt(quantityProduct) }
-      : b
-  );
+    let basket = newBasket.map((b) =>
+      b.id == idActive && b.color == colorActive
+        ? { ...b, quantity: parseInt(quantityProduct) }
+        : b
+    );
 
-  quantityTotal(productQuantity);
-  localStorage.setItem("basket", JSON.stringify(basket));
+    localStorage.setItem("basket", JSON.stringify(basket));
+  }
+  else {
+    alert("Erreur sur la quantité");
+  }
 
   // REFRESH PAGE
   location.reload();
 });
 }
+
+
+/* Trier le panier */
+function rangeBasket() {
+  let basket = JSON.parse(localStorage.getItem("basket"));
+  basket.sort((a, b) => parseInt(a.id) - parseInt(b.id));
+  saveBasket(basket);
+}
+
+rangeBasket();
+
+
+/* 
+
+RESTE A FAIRE : 
+- VALIDATION DU FORMULAIRE AVEC REGEX             !!!!!! 
+- PAGE CONFIRMATION COMMANDE >
+- PLAN DE TEST > 
+
+*/
+
+
+/**
+ *
+ * Expects request to contain:
+ * contact: {
+ *   firstName: string,
+ *   lastName: string,
+ *   address: string,
+ *   city: string,
+ *   email: string
+ * }
+ * products: [string] <-- array of product _id
+ *
+ */
+
+
+/* GESTION DES ERREURS DU FORMULAIRES */
+  //  firstNameErrorMsg  ( PRENOM ) 
+  //  lastNameErrorMsg   ( NOM )
+  //  addressErrorMsg    ( ADRESS )
+  //  cityErrorMsg       ( city )
+  //  emailErrorMsg       (emailErrorMsg)
+  //  submit

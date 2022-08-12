@@ -1,7 +1,6 @@
 basket = getBasket();
 
 function main() {
-
   for (let index = 0; index < basket.length; index++) {
     productId         = basket[index].id;
     productColor      = basket[index].color;
@@ -101,8 +100,38 @@ function recup(productId, productQuantity, productColor) {
       document.getElementById("totalPrice").textContent = priceTotal(product.price, productQuantity);
 
       clickChangeQuantity(itemQuantity);
+      deleteArticle(pcarItemDelete, cartItem);
     })  
 }
+
+
+function deleteArticle(itemDelete, cartItem) {
+  /* ÉVÉNEMENT SUPPRIMER */
+  itemDelete.addEventListener("click", (e) => {
+  /* Récupération de l'id au clic */
+  let idActive = e.composedPath()[4].dataset.id;
+
+  /* Récupération de la couleur au click */
+  let colorActive = e.composedPath()[4].dataset.color;
+
+  let basket = localStorage.getItem("basket");
+  let newBasket = JSON.parse(basket);
+
+  let monresultest = newBasket.findIndex(
+    (b) => b.id == idActive && b.color == colorActive
+  );
+
+  newBasket.splice(monresultest, 1);
+
+  cartItem.remove();
+  localStorage.setItem("basket", JSON.stringify(newBasket));
+
+  // REFRESH PAGE
+  location.reload();
+});
+
+}
+
 
 main();
 

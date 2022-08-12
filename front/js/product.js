@@ -3,7 +3,6 @@ const url       = urlBase + idProduct;
 
 main();
 
-
 function main() {
   fetch(url)
   .then((response) => response.json())
