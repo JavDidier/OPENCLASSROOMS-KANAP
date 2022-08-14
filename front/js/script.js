@@ -1,8 +1,15 @@
-fetch(urlBase).then((response) => response.json()).then((products) => {
+/* 
+  CETTE FONCTION DOIT ETRE COMMENTÉE 
+*/
+fetch(urlBase)
+  .then((response) => response.json())
+  .then((products) => {
     products.forEach((product) => {
-      
+
       /* GET DOM */
       let item            = document.getElementById("items");
+
+      /* CREATE TAG NAME*/
       let linkProduct     = document.createElement("a");
       let articleProduct  = document.createElement("article");
       let imgProduct      = document.createElement("img");
@@ -26,6 +33,15 @@ fetch(urlBase).then((response) => response.json()).then((products) => {
       titleProduct.textContent  = product.name;
       infoProduct.textContent   = product.description;
       imgProduct.alt            = product.altTxt;
+
     });
-    console.log("Les produits ont bien été chargés");
+
+    console.log("Tous les produits ont bien été chargés !");
+
   }) .catch((e) => { alert(e); });
+
+
+
+/* RESTE A FAIRE SUR SCRIPT.JS */
+/* COMMENTER LA FONCTION FETCH */
+/* VÉRIFIER LES 5 AUTRES COMMENTAIRES */

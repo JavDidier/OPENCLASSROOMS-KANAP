@@ -1,6 +1,3 @@
-const idProduct = new URLSearchParams(window.location.search).get("id");
-const url       = urlBase + idProduct;
-
 main();
 
 function main() {
@@ -41,6 +38,7 @@ function clickAddBasket() {
   
     if (quantitySelect >= 1 && quantitySelect <= 100 && colorSelect != "") {
       addBasket(colorSelect, quantitySelect); 
+      rangeBasket();
     } else { 
       alert("Vous avez mal renseigné les champs de sélection (couleur / nombre d'article(s)");
     }

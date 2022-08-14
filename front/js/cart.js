@@ -1,19 +1,19 @@
-basket = getBasket();
 
-function main() {
+async function main(basket) {
+  
   for (let index = 0; index < basket.length; index++) {
     productId         = basket[index].id;
     productColor      = basket[index].color;
     productQuantity   = basket[index].quantity;
 
-    recup(productId, productQuantity, productColor);
+    const promise = recup(productId, productQuantity, productColor);
+
+    await promise;
   }
 }
 
 function recup(productId, productQuantity, productColor) {
-  fetch(urlBase + productId)
-    .then((response) => response.json())
-    .then((product) => {
+  const promise = fetch(urlBase + productId).then((response) => response.json()).then((product) => {
 
       /* GET DOM, ADD CLASS, SET ATTRIBUTES */
       let cartItems         = document.getElementById("cart__items");
@@ -101,8 +101,11 @@ function recup(productId, productQuantity, productColor) {
 
       clickChangeQuantity(itemQuantity);
       deleteArticle(pcarItemDelete, cartItem);
-    })  
+
+    })
+   return promise;
 }
+
 
 
 function deleteArticle(itemDelete, cartItem) {
@@ -128,12 +131,14 @@ function deleteArticle(itemDelete, cartItem) {
 
   // REFRESH PAGE
   location.reload();
+
 });
 
 }
 
 
-main();
+basket = getBasket();
+main(basket);
 
 
 

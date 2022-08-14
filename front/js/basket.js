@@ -6,9 +6,16 @@ function getBasket() {
       if (basket == null) {
         return []; 
       }
-        return JSON.parse(basket); 
+      return JSON.parse(basket); 
   }
 
+/* Trier le panier */
+function rangeBasket() {
+  // let basket      = JSON.parse(localStorage.getItem("basket"));
+  let basket = getBasket();
+  basket.sort((a, b) => parseInt(a.id) - parseInt(b.id));
+  saveBasket(basket);
+}
 
 /* 
     SAVE BASKET 
@@ -100,45 +107,3 @@ itemQuantity.addEventListener("change", (e) => {
 }
 
 
-/* Trier le panier */
-function rangeBasket() {
-  let basket = JSON.parse(localStorage.getItem("basket"));
-  basket.sort((a, b) => parseInt(a.id) - parseInt(b.id));
-  saveBasket(basket);
-}
-
-rangeBasket();
-
-
-/* 
-
-RESTE A FAIRE : 
-- VALIDATION DU FORMULAIRE AVEC REGEX             !!!!!! 
-- PAGE CONFIRMATION COMMANDE >
-- PLAN DE TEST > 
-
-*/
-
-
-/**
- *
- * Expects request to contain:
- * contact: {
- *   firstName: string,
- *   lastName: string,
- *   address: string,
- *   city: string,
- *   email: string
- * }
- * products: [string] <-- array of product _id
- *
- */
-
-
-/* GESTION DES ERREURS DU FORMULAIRES */
-  //  firstNameErrorMsg  ( PRENOM ) 
-  //  lastNameErrorMsg   ( NOM )
-  //  addressErrorMsg    ( ADRESS )
-  //  cityErrorMsg       ( city )
-  //  emailErrorMsg       (emailErrorMsg)
-  //  submit
