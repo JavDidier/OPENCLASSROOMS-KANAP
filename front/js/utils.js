@@ -1,9 +1,12 @@
+// Constantes utiles
 const urlBase   = "http://localhost:3000/api/products/";
 const idProduct = new URLSearchParams(window.location.search).get("id");
 const url       = urlBase + idProduct;
 const orderId = new URLSearchParams(window.location.search).get("orderId");
 
-/* Pour la validation du formulaire user */
+
+
+// Validation du formulaire > cart.html
 let statusFirstName     = false;
 let statusLastName      = false;
 let statusAddress       = false;

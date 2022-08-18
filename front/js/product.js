@@ -17,6 +17,7 @@ function main() {
         listColors.appendChild(itemColor);
       }
 
+    console.log("Le produit " +idProduct+ " s'affiche");
     clickAddBasket();
   })
   .catch((e) => { alert(e); });
