@@ -11,9 +11,13 @@ function getBasket() {
 
 /* Trier le panier */
 function rangeBasket() {
-  // let basket      = JSON.parse(localStorage.getItem("basket"));
   let basket = getBasket();
-  basket.sort((a, b) => parseInt(a.id) - parseInt(b.id));
+  function sortBasket(x, y) {
+    if(x.id < y.id) { return -1; }
+    if(x.id > y.id) { return 1}
+    return 0
+  }
+  basket.sort(sortBasket);
   saveBasket(basket);
 }
 

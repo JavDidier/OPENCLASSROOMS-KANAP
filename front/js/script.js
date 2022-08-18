@@ -39,9 +39,3 @@ fetch(urlBase)
     console.log("Tous les produits ont bien été chargés !");
 
   }) .catch((e) => { alert(e); });
-
-
-
-/* RESTE A FAIRE SUR SCRIPT.JS */
-/* COMMENTER LA FONCTION FETCH */
-/* VÉRIFIER LES 5 AUTRES COMMENTAIRES */
