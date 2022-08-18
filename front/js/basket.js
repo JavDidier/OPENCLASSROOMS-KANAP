@@ -1,6 +1,4 @@
-/* 
-    GET BASKET 
-*/
+// Récupération du panier si il existe dans le local storage
 function getBasket() {
     let basket = localStorage.getItem("basket");
       if (basket == null) {
@@ -9,7 +7,7 @@ function getBasket() {
       return JSON.parse(basket); 
   }
 
-/* Trier le panier */
+// Trier le panier dans le local storage
 function rangeBasket() {
   let basket = getBasket();
   function sortBasket(x, y) {
@@ -21,17 +19,13 @@ function rangeBasket() {
   saveBasket(basket);
 }
 
-/* 
-    SAVE BASKET 
-*/
+// Sauvegarder le panier
 function saveBasket(basket) {
   localStorage.setItem("basket", JSON.stringify(basket));
 }
 
 
-/* 
-    ADD BASKET 
-*/
+// Ajouter un produit au panier, mais vérifier aussi si il est déjà présent dans le panier
 function addBasket(colorSelect, quantitySelect) {
     let basket = getBasket();
     item = {
@@ -44,19 +38,19 @@ function addBasket(colorSelect, quantitySelect) {
       return p.color == item.color && p.id == item.id;
     });
   
-    if (basketProduct != undefined) { /* Si le produit existe dans le local Storage*/
+    if (basketProduct != undefined) { //Si le produit existe dans le local Storage
       quantityMax = basketProduct.quantity + quantitySelect;
        
       if (quantityMax > 100) {
         alert("La quantité d'article présent dans le panier serait supérieure à 100");
       }
       else {
-        alert("La couleur existe déjà, la quantité sera donc additionnée ");
+        alert("La quantité à été additionner au produit déjà présent dans le panier");
         basketProduct.quantity = basketProduct.quantity + quantitySelect;
       }
      
-    } else {  /* S'il n'existe pas encore dans le local Storage */  
-      console.log("L'article a été ajouter au panier");
+    } else {  //Si il n'existe pas dans le local Storage  
+      alert("Produit ajouté au panier");
       item.quantity = quantitySelect;
 
       basket.push(item);
@@ -65,14 +59,14 @@ function addBasket(colorSelect, quantitySelect) {
   }
 
 
-/* Calcul Total Price Products*/
+// Calcul le prix totale de tous les produits
 let totalPrice = 0;
 function priceTotal(priceProduct, productQuantity) {
   return totalPrice += (priceProduct * productQuantity);
 }
 
 
-/* Calcul Total Quantity Products*/
+// Calcul la quantité totale de tous les produits
 let productsQuantity = 0;
 function quantityTotal(productQuantity) {
   return productsQuantity += productQuantity;
@@ -100,6 +94,7 @@ itemQuantity.addEventListener("change", (e) => {
     );
 
     localStorage.setItem("basket", JSON.stringify(basket));
+    alert("La quantité totale et le prix total à été mis à jour");
   }
   else {
     alert("Erreur sur la quantité");
@@ -108,6 +103,31 @@ itemQuantity.addEventListener("change", (e) => {
   // REFRESH PAGE
   location.reload();
 });
+}
+
+
+// Clique sur le bouton supprimer
+function deleteArticle(itemDelete, cartItem) {
+  itemDelete.addEventListener("click", (e) => {
+  let idActive    = e.composedPath()[4].dataset.id;
+  let colorActive = e.composedPath()[4].dataset.color;
+
+  let basket      = localStorage.getItem("basket");
+  let newBasket   = JSON.parse(basket);
+
+  let monresultest = newBasket.findIndex(
+    (b) => b.id == idActive && b.color == colorActive
+  );
+
+  newBasket.splice(monresultest, 1);
+
+  cartItem.remove();
+  localStorage.setItem("basket", JSON.stringify(newBasket));
+
+  // Rafraichir la page
+  location.reload();
+  alert("L'article " +idActive+ " et " +colorActive+ " à été supprimer du panier.");
+  });
 }
 
 

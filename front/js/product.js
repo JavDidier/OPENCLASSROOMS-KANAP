@@ -1,5 +1,6 @@
 main();
 
+// Requête à l'API, extraction, et affichage du produit par son id
 function main() {
   fetch(url)
   .then((response) => response.json())
@@ -17,13 +18,13 @@ function main() {
         listColors.appendChild(itemColor);
       }
 
-    console.log("Le produit " +idProduct+ " s'affiche");
+      console.log( "Affichage du produit id : " +idProduct+ "."); // Afficher dans la console log que le produit est bien chargé
     clickAddBasket();
   })
   .catch((e) => { alert(e); });
 }
 
-/* Créer l'image qui sera afficher dans le HTML par rappport à l'id produit */
+// Créer l'image qui sera afficher dans le HTML par rappport à l'id produit - Utiliser dans la fonction main()
 function createImg(src, alt) {
   const img  = document.createElement("img");
   img.src  = src;
@@ -31,17 +32,25 @@ function createImg(src, alt) {
   return img; }
 
 
-/* Lorsque l'utilisateur clique sur le bouton ajouter au panier */
+// Au clique sur le bouton ajouter au panier - Utiliser dans la fonction main()
 function clickAddBasket() {
   document.getElementById("addToCart").addEventListener("click", () =>  {
     let colorSelect     = document.getElementById("colors").value;
-    let quantitySelect  = parseInt(document.getElementById("quantity").value);
+    let quantitySelect  = 0; 
+    quantitySelect      = parseInt(document.getElementById("quantity").value);
   
     if (quantitySelect >= 1 && quantitySelect <= 100 && colorSelect != "") {
-      addBasket(colorSelect, quantitySelect); 
-      rangeBasket();
-    } else { 
-      alert("Vous avez mal renseigné les champs de sélection (couleur / nombre d'article(s)");
+      addBasket(colorSelect, quantitySelect); // utilisation de la fonction ( ajouter au panier )
+      rangeBasket(); // utilisation de la fonction ( trier le panier )
+    }
+    else if (quantitySelect >= 1 && quantitySelect <= 100 && colorSelect == "") {
+      alert("La couleur sélectionnée n'est pas correcte");
+    }
+    else if ((quantitySelect < 1 || quantitySelect > 100) && colorSelect != "") {
+      alert("La quantité sélectionné n'est pas correcte");
+    }  
+    else { 
+      alert("Vous avez mal renseigné les champs de sélection");
     }
   });
 }
