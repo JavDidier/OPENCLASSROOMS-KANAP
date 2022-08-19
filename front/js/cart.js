@@ -14,7 +14,7 @@ async function main(basket) {
 }
 
 // Fonction qui récupère les informations des produits dans l'API à partir de leur id
-// Important de retourner une promise afin de pouvoir attendre la fin de l'exécution du programme, pour l'afficher
+// Important de retourner une promise afin de pouvoir attendre la fin de l'exécution du programme, pour l'afficher dans la fonction main
 function recup(productId, productQuantity, productColor) {
   const promise = fetch(urlBase + productId).then((response) => response.json()).then((product) => {
 
