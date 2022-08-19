@@ -1,7 +1,8 @@
-
+// fonction principale
 async function main(basket) {
-
+  
   for (let index = 0; index < basket.length; index++) {
+    
     productId         = basket[index].id;
     productColor      = basket[index].color;
     productQuantity   = basket[index].quantity;
@@ -12,10 +13,11 @@ async function main(basket) {
   }
 }
 
+// Fonction qui récupère les informations des produits dans l'API à partir de leur id
+// Important de retourner une promise afin de pouvoir attendre la fin de l'exécution du programme, pour l'afficher
 function recup(productId, productQuantity, productColor) {
   const promise = fetch(urlBase + productId).then((response) => response.json()).then((product) => {
 
-      /* GET DOM, ADD CLASS, SET ATTRIBUTES */
       let cartItems         = document.getElementById("cart__items");
       let cartItem          = document.createElement("article");
       cartItem.className    = "cart__item";
@@ -42,22 +44,22 @@ function recup(productId, productQuantity, productColor) {
         "cart__item__content__description";
       cartItemContent.append(cartDescription);
 
-      /* TITLE PRODUCT */
+      /* TITRE PRODUIT */
       let titleProduct = document.createElement("h2");
       titleProduct.textContent = product.name;
       cartDescription.appendChild(titleProduct);
 
-      /* COLOR PRODUCT */
+      /* COULEUR PRODUIT */
       let colorProduct          = document.createElement("p");
       colorProduct.textContent  = productColor;
       cartDescription.appendChild(colorProduct);
 
-      /* PRICE */
+      /* PRIX */
       let priceProduct = document.createElement("p");
       priceProduct.textContent = parseInt(product.price) + "€";
       cartDescription.appendChild(priceProduct);
 
-      /* SETTINGS */
+      /* PARAMETRES */
       let cartSettings = document.createElement("div");
       cartSettings.className = "cart__item__content__settings";
       cartItemContent.append(cartSettings);
@@ -67,7 +69,7 @@ function recup(productId, productQuantity, productColor) {
         "cart__item__content__settings__quantity";
       cartSettings.appendChild(cartSettingsQuantity);
 
-      /* QUANTITY  */
+      /* QUANTITÉ  */
       let pcarItemContentSettingQuantity = document.createElement("p");
       pcarItemContentSettingQuantity.textContent = "Qté : ";
       cartSettingsQuantity.appendChild(
@@ -83,7 +85,7 @@ function recup(productId, productQuantity, productColor) {
       itemQuantity.value     = productQuantity;
       cartSettingsQuantity.appendChild(itemQuantity);
 
-      /* DELETE */
+      /* SUPPRIMER */
       let cartItemDelete = document.createElement("div");
       cartItemDelete.className = "cart__item__content__settings__delete";
       cartSettings.appendChild(cartItemDelete);
@@ -93,11 +95,12 @@ function recup(productId, productQuantity, productColor) {
       pcarItemDelete.textContent  = "Supprimer";
       cartItemDelete.appendChild(pcarItemDelete);
 
-      /* TOTAL QUANTITY */
+      /* quantité totale */
       document.getElementById("totalQuantity").textContent = quantityTotal(productQuantity);
 
-      /* TOTAL PRICE */
+      /* prix totale*/
       document.getElementById("totalPrice").textContent = priceTotal(product.price, productQuantity);
+
 
       clickChangeQuantity(itemQuantity);
       deleteArticle(pcarItemDelete, cartItem);
@@ -109,7 +112,6 @@ function recup(productId, productQuantity, productColor) {
 
 // Récupérer le local storage
 basket = getBasket();
-
 // Lancer la fonction principale de cart.js
 main(basket);
 

@@ -5,7 +5,6 @@ const url       = urlBase + idProduct;
 const orderId = new URLSearchParams(window.location.search).get("orderId");
 
 
-
 // Validation du formulaire > cart.html
 let statusFirstName     = false;
 let statusLastName      = false;
@@ -21,5 +20,17 @@ function statusForm(statusFirstName, statusLastName, statusAddress, statusCity, 
     else {
         alert('Erreur : tous les champs doivent être correctement remplis.');
         statusFormulaire = false;
+    }
+}
+
+
+
+ // Désactive le boutton commander si le panier est nul
+function disabledBtnCommand() {
+    if(basket.length === 0 ) {
+        alert("Le panier est vide");
+        btnCommand.disabled = true;
+        btnCommand.style.color = "lightgrey";
+        btnCommand.style.backgroundColor = "grey";
     }
 }

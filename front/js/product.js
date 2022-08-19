@@ -18,10 +18,9 @@ function main() {
         listColors.appendChild(itemColor);
       }
 
-      console.log( "Affichage du produit id : " +idProduct+ "."); // Afficher dans la console log que le produit est bien chargé
+      console.log( "Affichage du produit id : " +idProduct); // Afficher dans la console log que le produit est bien chargé
     clickAddBasket();
-  })
-  .catch((e) => { alert(e); });
+  }) .catch((e) => { alert(e); });
 }
 
 // Créer l'image qui sera afficher dans le HTML par rappport à l'id produit - Utiliser dans la fonction main()

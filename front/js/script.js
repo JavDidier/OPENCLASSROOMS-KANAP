@@ -1,4 +1,4 @@
-// Requête à l'API pour afficher tous les produits
+// Requête à l'API pour afficher tous les produits sur la page d'accueil
 fetch(urlBase)
   .then((response) => response.json())
   .then((products) => {

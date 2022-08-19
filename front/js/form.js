@@ -1,12 +1,16 @@
-let form        = document.querySelector('.cart__order__form');
-let btnCommand  = document.getElementById('order');
-let basket      = getBasket();
+let form        = document.querySelector('.cart__order__form'); // Stock le formulaire
+let btnCommand  = document.getElementById('order'); // Bouton passe commande
+let basket      = getBasket();  // Stock le local storage
 
 let text         = "^[a-zàáâãäåçèéêëìíîïðòóôõöùúûüýÿ -]{2,30}$";
 let textaddress  = "^[0-9a-zàáâãäåçèéêëìíîïðòóôõöùúûüýÿ -]{2,50}$";
 let textMail     = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
 
-let products = getBasket().map(x => x.id);
+// Info : La méthode map() crée un nouveau tableau avec resultat l'appel du tableau appelant
+// Ici je parcours le local storage, et je récupère les id des produits, sous forme de tableau
+let products = getBasket().map(x => x.id);  
+
+
 let order = {
     contact: {
         firstName  : firstName,
@@ -18,13 +22,7 @@ let order = {
     products:  products
 }
 
-// Désactive le boutton commander si le panier est nul
-if(basket.length === 0 ) {
-    alert("Le panier est vide");
-    btnCommand.disabled = true;
-    btnCommand.style.color = "lightgrey";
-    btnCommand.style.backgroundColor = "grey";
-}
+disabledBtnCommand();
 
 // PRÉNOM 
 form.firstName.addEventListener('change', function() {
@@ -141,8 +139,10 @@ const validemail = function (email) {
 }
 
 
-form.addEventListener('submit', function(e) {
-    e.preventDefault();
+form.addEventListener('submit', function(event) {
+
+    // Empeche l'exécution du code si l'évènement n'est pas explicitement géré
+    event.preventDefault();
 
     statusForm(statusFirstName, statusLastName, statusAddress, statusCity, statusEmail);
 
