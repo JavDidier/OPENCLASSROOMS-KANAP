@@ -24,6 +24,21 @@ function statusForm(statusFirstName, statusLastName, statusAddress, statusCity, 
 }
 
 
+function checkInput(checkInputName, statusInputName, messageInputName, messageInputValue) {
+    if (checkInputName) {
+        messageInputName.style.color = "#00FF00";
+        messageInputName.textContent = "Valide";
+        statusInputName = true;    
+    }  
+    else {
+        messageInputName.style.color = "red";
+        messageInputName.textContent = "Erreur " + messageInputValue; 
+        statusInputName = false;
+    }
+
+    return statusInputName;
+}
+
 
  // Désactive le boutton commander si le panier est nul
 function disabledBtnCommand() {

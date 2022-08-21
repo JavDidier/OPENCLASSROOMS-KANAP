@@ -1,7 +1,8 @@
-let form        = document.querySelector('.cart__order__form'); // Stock le formulaire
-let btnCommand  = document.getElementById('order'); // Bouton passe commande
-let basket      = getBasket();  // Stock le local storage
+let form         = document.querySelector('.cart__order__form'); // Stock le formulaire
+let btnCommand   = document.getElementById('order'); // Bouton passe commande
+let basket       = getBasket();  // Stock le local storage
 
+// REGEXP
 let text         = "^[a-zàáâãäåçèéêëìíîïðòóôõöùúûüýÿ -]{2,30}$";
 let textaddress  = "^[0-9a-zàáâãäåçèéêëìíîïðòóôõöùúûüýÿ -]{2,50}$";
 let textMail     = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
@@ -9,7 +10,6 @@ let textMail     = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]
 // Info : La méthode map() crée un nouveau tableau avec resultat l'appel du tableau appelant
 // Ici je parcours le local storage, et je récupère les id des produits, sous forme de tableau
 let products = getBasket().map(x => x.id);  
-
 
 let order = {
     contact: {
@@ -22,129 +22,100 @@ let order = {
     products:  products
 }
 
+// Désactivation du bouton commander, si aucun produit dans le panier
 disabledBtnCommand();
+
+
+/* ===================
+--------FORM----------
+======================*/
 
 // PRÉNOM 
 form.firstName.addEventListener('change', function() {
     validFirstName(this);
-
 });
+
 const validFirstName = function (firstName) {
     let firstNameRegExp     = new RegExp(text);
-    let MsgFirstName        = document.querySelector("#firstNameErrorMsg");
+    let msgFirstName        = document.querySelector("#firstNameErrorMsg");
     order.contact.firstName = firstName.value.toLowerCase();
     let checkFirstName      = firstNameRegExp.test(firstName.value.toLowerCase());
+    let messageFirstValue   = "- Exemple : Jean-François, Thomas ...";
 
-    if (checkFirstName) {
-        MsgFirstName.style.color = "#00FF00";
-        MsgFirstName.textContent = "Valide";
-        statusFirstName = true;    
-    }  
-    else {
-        MsgFirstName.style.color = "red";
-        MsgFirstName.textContent = "Erreur - Exemple : Jean-François, Thomas ... "; 
-        statusFirstName = false;
-    }
+    statusFirstName = checkInput(checkFirstName, statusFirstName, msgFirstName, messageFirstValue);
 }
+
 
 // NOM
 form.lastName.addEventListener('change', function() {
     validLastName(this);
 });
+
 const validLastName = function (lastName) {
     let lastNameRegExp      = new RegExp(text);
-    let MsgLastName         = document.querySelector("#lastNameErrorMsg");
+    let msgLastName         = document.querySelector("#lastNameErrorMsg");
     order.contact.lastName  = lastName.value.toLowerCase();
     let checkLastName       = lastNameRegExp.test(lastName.value.toLowerCase());
+    let messageLastValue    = "- Exemple : Dupont, Ledru-Rollin Dupont ...";
 
-    if (checkLastName) {
-        MsgLastName.style.color = "#00FF00";
-        MsgLastName.textContent = "Valide";
-        statusLastName = true;    
-    }  
-    else {
-        MsgLastName.style.color = "red";
-        MsgLastName.textContent = "Erreur - Exemple : Dupont, Ledru-Rollin Dupont ... "; 
-        statusLastName = false;
-    }
+    statusLastName = checkInput(checkLastName, statusLastName, msgLastName, messageLastValue);
 }
 
 // ADRESSE 
 form.address.addEventListener('change', function() {
     validAddress(this);
-
 });
+
 const validAddress = function (address) {
     let addressRegExp       = new RegExp(textaddress);
     let MsgAddress          = document.querySelector("#addressErrorMsg");
     order.contact.address   = address.value.toLowerCase();
     let checkAddress        = addressRegExp.test(address.value.toLowerCase());
-    
-    if (checkAddress) {
-        MsgAddress.style.color = "#00FF00";
-        MsgAddress.textContent = "Valide";
-        statusAddress = true;    
-    }  
-    else {
-        MsgAddress.style.color = "red";
-        MsgAddress.textContent = "Erreur - Exemple : 127 rue de la tour ... "; 
-        statusAddress = false;
-    }
+    let messageAddressValue    = "- Exemple : 123 rue des pépins ...";
+
+    statusAddress = checkInput(checkAddress, statusAddress, MsgAddress, messageAddressValue);
 }
 
 // VILLE
 form.city.addEventListener('change', function() {
     validCity(this);
-
 });
+
 const validCity = function (city) {
     let cityRegExp      = new RegExp(text);
     let cityErrorMsg    = document.querySelector("#cityErrorMsg");
     order.contact.city  = city.value.toLowerCase();
     let checkCity       = cityRegExp.test(city.value.toLowerCase());
+    let messageCityValue    = "- Exemple : Pau, San-Francisco, paris ...";
 
-    if (checkCity) {
-        cityErrorMsg.style.color = "#00FF00";
-        cityErrorMsg.textContent = "Valide";
-        statusCity = true;    
-    }  
-    else {
-        cityErrorMsg.style.color = "red";
-        cityErrorMsg.textContent = "Erreur - Exemple : Pau, San-Francisco, paris ... "; 
-        statusCity = false;
-    }
+    statusCity = checkInput(checkCity, statusCity, cityErrorMsg, messageCityValue);
 }
 
 // EMAIL
 form.email.addEventListener('change', function() {
     validemail(this);
-
 });
+
 const validemail = function (email) {
     let emailRegExp      = new RegExp(textMail);
     let emailErrorMsg    = document.querySelector("#emailErrorMsg");
     order.contact.email  = email.value.toLowerCase();
     let checkEmail       = emailRegExp.test(email.value.toLowerCase());
+    let messageEmailValue    = "- Exemple : name@host.com ...";
 
-    if (checkEmail) {
-        emailErrorMsg.style.color = "#00FF00";
-        emailErrorMsg.textContent = "Valide";
-        statusEmail = true;    
-    }  
-    else {
-        emailErrorMsg.style.color = "red";
-        emailErrorMsg.textContent = "Erreur - Exemple : name@host.com ... "; 
-        statusEmail = false;
-    }
+    statusEmail = checkInput(checkEmail, statusEmail, emailErrorMsg, messageEmailValue);
 }
 
-
+/* ===============
+-- BTN COMMANDER--
+================== */
 form.addEventListener('submit', function(event) {
 
     // Empeche l'exécution du code si l'évènement n'est pas explicitement géré
     event.preventDefault();
 
-    statusForm(statusFirstName, statusLastName, statusAddress, statusCity, statusEmail);
+    console.log(statusFirstName, statusLastName, statusAddress, statusCity, statusEmail);
+    statusForm(statusFirstName, statusLastName, statusAddress, statusCity, statusEmail); // Appel la fonction (utils.js)
 
     if(statusFormulaire == true) {
         let options = {
